@@ -2,7 +2,8 @@ let terminalBody = document.getElementById('terminalBody')
 
 let commands = {
     "clear": clearTerminal,
-    "neofetch": neofetch
+    "neofetch": neofetch,
+    "ligma": ligma
 }
 
 function exec(command){
