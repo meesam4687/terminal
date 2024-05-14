@@ -43,6 +43,7 @@ body {
         scale: 0.1;
 
     }
+
     to {
         opacity: 1;
         scale: 1.0;
@@ -96,7 +97,8 @@ body {
     display: flex;
     align-items: center;
 }
-.terminalBody{
+
+.terminalBody {
     margin: 10px;
     margin-left: 4px;
     font-family: Consolas, monospace;
@@ -120,9 +122,11 @@ body {
     0% {
         opacity: 1;
     }
+
     50% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }

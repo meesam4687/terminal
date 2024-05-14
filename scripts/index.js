@@ -6,11 +6,11 @@ let commands = {
     "ligma": ligma
 }
 
-function exec(command){
-    if(!commands[command]){
+function exec(command) {
+    if (!commands[command]) {
         terminalBody.innerHTML += `Command not found: ${command}<br>`
     }
-    else{
+    else {
         commands[command]();
     }
 }
@@ -18,7 +18,7 @@ function exec(command){
 let input = '';
 document.addEventListener('keydown', function (event) {
     terminalBody.innerHTML = terminalBody.innerHTML.replace(/<span class="caret"><\/span>/g, '');
-    if(event.key === 'Backspace'){
+    if (event.key === 'Backspace') {
         input = input.slice(0, -1);
         terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -1);
         terminalBody.innerHTML += '<span class="caret"></span>';
