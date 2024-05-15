@@ -8,6 +8,9 @@ let commands = {
 }
 
 function exec(command) {
+    if(command === '') {
+        return;
+    }
     if (!commands[command]) {
         terminalBody.innerHTML += `Command not found: ${command}<br>`
     }
