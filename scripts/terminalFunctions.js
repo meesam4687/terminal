@@ -24,3 +24,15 @@ function ligma() {
         window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
     }
 }
+
+function help(){
+    let l = []
+    Object.keys(commands).forEach((command) => {
+        l.push(commands[command].description)
+    });
+    terminalBody.innerHTML += `
+    List of Commands:<br>
+    ${l.join('<br>')}
+    <br>
+    `
+}
