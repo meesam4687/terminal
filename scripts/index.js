@@ -23,6 +23,10 @@ let input = '';
 document.addEventListener('keydown', function (event) {
     terminalBody.innerHTML = terminalBody.innerHTML.replace(/<span class="caret"><\/span>/g, '');
     if (event.key === 'Backspace') {
+        if(input.length === 0) {
+            terminalBody.innerHTML += '<span class="caret"></span>';
+            return;
+        }
         input = input.slice(0, -1);
         terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -1);
         terminalBody.innerHTML += '<span class="caret"></span>';

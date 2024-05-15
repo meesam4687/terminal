@@ -1,6 +1,7 @@
 function clearTerminal() {
     terminalBody.innerHTML = '';
 }
+
 function neofetch() {
     terminalBody.innerHTML += `
     <pre>
