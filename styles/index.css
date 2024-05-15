@@ -99,15 +99,17 @@ body {
 }
 
 .terminalBody {
+    overflow: auto;
     margin: 10px;
     margin-left: 4px;
     font-family: Consolas, monospace;
     font-size: 1.3ch;
+    height: 93%;
 }
 
 .caret {
     position: relative;
-    top: 50%;
+    top: 0%;
     transform: translate(30%, 18%);
     display: inline-block;
     background-color: white;
