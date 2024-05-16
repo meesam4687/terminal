@@ -1,4 +1,4 @@
-function terminalWrite(txt){
+function terminalWrite(txt) {
     terminalBody.innerHTML += txt + '<br>';
 }
 
@@ -30,7 +30,7 @@ function ligma() {
     }
 }
 
-function help(){
+function help() {
     let l = []
     Object.keys(commands).forEach((command) => {
         l.push(commands[command].description)
@@ -42,16 +42,33 @@ function help(){
     `
 }
 
-function ls(){
+function ls() {
     let fileArray = storage.find(x => x.dirpath === currentDir).files.map(x => x.filename)
     console.log(fileArray)
     let lsDiv = document.createElement('div')
     lsDiv.className = 'lsDiv'
-    for(i of fileArray){
+    for (i of fileArray) {
         let fileDiv = document.createElement('div')
         fileDiv.style.marginRight = '25px'
         fileDiv.innerHTML = i
         lsDiv.appendChild(fileDiv)
     }
     terminalBody.appendChild(lsDiv)
+}
+
+function cat(raw) {
+    let file = raw.split(' ')[1]
+    if (!file) {
+        terminalWrite('Usage: cat [filename]')
+        return;
+    }
+    let fileContent;
+    try {
+        fileContent = storage.find(x => x.dirpath === currentDir).files.find(x => x.filename === file).fileContent
+    }
+    catch {
+        terminalWrite('File not found')
+        return;
+    }
+    terminalWrite(fileContent)
 }

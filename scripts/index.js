@@ -6,21 +6,24 @@ let commands = {
     "help": {command: help, description: "help - Shows this screen"},
     "ligma": {command: ligma, description: "ligma - Try it and see (disable browser shields etc for it to work properly)"},
     "ls": {command: ls, description: "ls - List files in current directory"},
+    "cat": {command: cat, description: "cat - Show contents of a file"},
 }
 
-function exec(command) {
-    if(command === '') {
+function exec(command, rw) {
+    cmd = command.split(' ')[0];
+    if(cmd === '') {
         return;
     }
-    if (!commands[command]) {
-        terminalBody.innerHTML += `Command not found: ${command}<br>`
+    if (!commands[cmd]) {
+        terminalBody.innerHTML += `Command not found: ${cmd}<br>`
     }
     else {
-        commands[command].command();
+        commands[cmd].command(rw);
     }
 }
 
 let input = '';
+let rawInput = ''
 document.addEventListener('keydown', function (event) {
     terminalBody.innerHTML = terminalBody.innerHTML.replace(/<span class="caret"><\/span>/g, '');
     if (event.key === 'Backspace') {
@@ -34,7 +37,8 @@ document.addEventListener('keydown', function (event) {
     }
     if (event.key === 'Enter') {
         terminalBody.innerHTML += '<br>';
-        exec(input);
+        rawInput = input;
+        exec(input, rawInput);
         terminalBody.innerHTML += "root@browser:~$ <span class='caret'></span>";
         input = '';
         terminalBody.scrollTop = terminalBody.scrollHeight - terminalBody.clientHeight;
@@ -44,6 +48,9 @@ document.addEventListener('keydown', function (event) {
     if (!keys.includes(event.key.toLowerCase())) {
         input += event.key;
         terminalBody.innerHTML += event.key;
+        terminalBody.innerHTML += '<span class="caret"></span>';
+    }
+    else {
         terminalBody.innerHTML += '<span class="caret"></span>';
     }
 });
