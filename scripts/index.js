@@ -39,7 +39,7 @@ document.addEventListener('keydown', function (event) {
         terminalBody.innerHTML += '<br>';
         rawInput = input;
         exec(input, rawInput);
-        terminalBody.innerHTML += "root@browser:~$ <span class='caret'></span>";
+        terminalBody.innerHTML += "root@browser:~$ ";
         input = '';
         terminalBody.scrollTop = terminalBody.scrollHeight - terminalBody.clientHeight;
     }
