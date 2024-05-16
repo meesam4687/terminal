@@ -8,7 +8,10 @@ let commands = {
     "ls": {command: ls, description: "ls - List files in current directory"},
     "cat": {command: cat, description: "cat - Show contents of a file"},
     "touch": {command: touch, description: "touch - Create a new file"},
-    "rm": {command: rm, description: "rm - Remove a file"}
+    "rm": {command: rm, description: "rm - Remove a file"},
+    "arch": {command: arch, description: "arch - Show the architecture of the system"},
+    "cd": {command: cd, description: "cd - Change directory"},
+    "mkdir": {command: mkdir, description: "mkdir - Create a new directory"}
 }
 
 function exec(command, rw) {
@@ -40,7 +43,7 @@ document.addEventListener('keydown', function (event) {
         terminalBody.innerHTML += '<br>';
         rawInput = input;
         exec(input, rawInput);
-        terminalBody.innerHTML += "root@browser:~$ ";
+        terminalBody.innerHTML += "root@browser:"+ currentDir +"$ ";
         input = '';
         terminalBody.scrollTop = terminalBody.scrollHeight - terminalBody.clientHeight;
     }

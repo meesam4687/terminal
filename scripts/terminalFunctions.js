@@ -101,3 +101,40 @@ function rm(raw){
     storage.find(x => x.dirpath === currentDir).files.splice(fileIndex, 1)
     localStorage.setItem('dirs', JSON.stringify(storage))
 }
+
+function arch(){
+    terminalWrite(navigator.userAgent)
+}
+
+function cd(raw){
+    let dir = raw.split(' ')[1]
+    if (!dir) {
+        terminalWrite('Usage: cd [directory]')
+        return;
+    }
+    if (dir === '..') {
+        currentDir = currentDir.split('/').slice(0, -1).join('/')
+        return;
+    }
+    let dirIndex = storage.findIndex(x => x.dirpath === currentDir + '/' + dir)
+    if (dirIndex === -1) {
+        terminalWrite('Directory not found')
+        return;
+    }
+    currentDir += '/' + dir
+}
+
+function mkdir(raw){
+    let dirname = raw.split(' ')[1]
+    if (!dirname) {
+        terminalWrite('Usage: mkdir [dirname]')
+        return;
+    }
+    let dir = {
+        dirname: dirname,
+        dirpath: currentDir + '/' + dirname,
+        files: []
+    }
+    storage.push(dir)
+    localStorage.setItem('dirs', JSON.stringify(storage))
+}
