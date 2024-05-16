@@ -35,7 +35,6 @@ document.addEventListener('keydown', function (event) {
         }
         input = input.slice(0, -1);
         terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -1);
-        terminalBody.innerHTML += '<span class="caret"></span>';
     }
     if (event.key === 'Enter') {
         terminalBody.innerHTML += '<br>';
