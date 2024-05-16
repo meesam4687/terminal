@@ -72,3 +72,32 @@ function cat(raw) {
     }
     terminalWrite(fileContent)
 }
+
+function touch(raw){
+    let filename = raw.split(' ')[1]
+    if (!filename) {
+        terminalWrite('Usage: touch [filename]')
+        return;
+    }
+    let file = {
+        filename: filename,
+        fileContent: ''
+    }
+    storage.find(x => x.dirpath === currentDir).files.push(file)
+    localStorage.setItem('dirs', JSON.stringify(storage))
+}
+
+function rm(raw){
+    let filename = raw.split(' ')[1]
+    if (!filename) {
+        terminalWrite('Usage: rm [filename]')
+        return;
+    }
+    let fileIndex = storage.find(x => x.dirpath === currentDir).files.findIndex(x => x.filename === filename)
+    if (fileIndex === -1) {
+        terminalWrite('File not found')
+        return;
+    }
+    storage.find(x => x.dirpath === currentDir).files.splice(fileIndex, 1)
+    localStorage.setItem('dirs', JSON.stringify(storage))
+}

@@ -7,6 +7,8 @@ let commands = {
     "ligma": {command: ligma, description: "ligma - Try it and see (disable browser shields etc for it to work properly)"},
     "ls": {command: ls, description: "ls - List files in current directory"},
     "cat": {command: cat, description: "cat - Show contents of a file"},
+    "touch": {command: touch, description: "touch - Create a new file"},
+    "rm": {command: rm, description: "rm - Remove a file"}
 }
 
 function exec(command, rw) {
