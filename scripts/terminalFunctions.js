@@ -1,3 +1,7 @@
+function terminalWrite(txt){
+    terminalBody.innerHTML += txt + '<br>';
+}
+
 function clearTerminal() {
     terminalBody.innerHTML = '';
 }
@@ -36,4 +40,18 @@ function help(){
     ${l.join('<br>')}
     <br>
     `
+}
+
+function ls(){
+    let fileArray = storage.find(x => x.dirpath === currentDir).files.map(x => x.filename)
+    console.log(fileArray)
+    let lsDiv = document.createElement('div')
+    lsDiv.className = 'lsDiv'
+    for(i of fileArray){
+        let fileDiv = document.createElement('div')
+        fileDiv.style.marginRight = '25px'
+        fileDiv.innerHTML = i
+        lsDiv.appendChild(fileDiv)
+    }
+    terminalBody.appendChild(lsDiv)
 }

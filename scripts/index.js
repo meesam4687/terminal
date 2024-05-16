@@ -1,10 +1,11 @@
 let terminalBody = document.getElementById('terminalBody')
-
+let currentDir = '/'
 let commands = {
     "clear": {command: clearTerminal, description: "clear - Clears the terminal"},
     "neofetch": {command: neofetch, description: "neofetch - Shows system information"},
     "help": {command: help, description: "help - Shows this screen"},
-    "ligma": {command: ligma, description: "ligma - Try it and see (disable browser shields etc for it to work properly)"}
+    "ligma": {command: ligma, description: "ligma - Try it and see (disable browser shields etc for it to work properly)"},
+    "ls": {command: ls, description: "ls - List files in current directory"},
 }
 
 function exec(command) {
