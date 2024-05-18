@@ -10,8 +10,8 @@ let commands = {
     "touch": {command: touch, description: "touch - Create a new file"},
     "rm": {command: rm, description: "rm - Remove a file"},
     "arch": {command: arch, description: "arch - Show the architecture of the system"},
-    "cd": {command: cd, description: "cd - Change directory"},
-    "mkdir": {command: mkdir, description: "mkdir - Create a new directory"}
+    "mkdir": {command: mkdir, description: "mkdir - Create a new directory"},
+    "cd": {command: cd, description: "cd - Change directory"}
 }
 
 function exec(command, rw) {

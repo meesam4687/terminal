@@ -44,7 +44,7 @@ function help() {
 
 function ls() {
     let fileArray = storage.find(x => x.dirpath === currentDir).files.map(x => x.filename)
-    console.log(fileArray)
+    let folderArray = storage.find(x => x.dirpath === currentDir).subDir.map(x => x.dirname)
     let lsDiv = document.createElement('div')
     lsDiv.className = 'lsDiv'
     for (i of fileArray) {
@@ -53,6 +53,16 @@ function ls() {
         fileDiv.innerHTML = i
         lsDiv.appendChild(fileDiv)
     }
+    let folderLSDiv = document.createElement('div')
+    folderLSDiv.className = 'folderLSDiv'
+    for (i of folderArray) {
+        let folderDiv = document.createElement('div')
+        folderDiv.style.marginRight = '25px'
+        folderDiv.style.color = 'blue'
+        folderDiv.innerHTML = i
+        folderLSDiv.appendChild(folderDiv)
+    }
+    lsDiv.appendChild(folderLSDiv)
     terminalBody.appendChild(lsDiv)
 }
 
@@ -94,8 +104,17 @@ function rm(raw){
         return;
     }
     let fileIndex = storage.find(x => x.dirpath === currentDir).files.findIndex(x => x.filename === filename)
+    let folderIndex;
     if (fileIndex === -1) {
-        terminalWrite('File not found')
+        folderIndex = storage.find(x => x.dirpath === currentDir).subDir.findIndex(x => x.dirname === filename)
+        if (folderIndex === -1) {
+            terminalWrite('No such File or Folder Found')
+            return;
+        }
+    }
+    if(fileIndex === -1){
+        storage.find(x => x.dirpath === currentDir).subDir.splice(folderIndex, 1)
+        localStorage.setItem('dirs', JSON.stringify(storage))
         return;
     }
     storage.find(x => x.dirpath === currentDir).files.splice(fileIndex, 1)
@@ -106,35 +125,32 @@ function arch(){
     terminalWrite(navigator.userAgent)
 }
 
-function cd(raw){
-    let dir = raw.split(' ')[1]
-    if (!dir) {
-        terminalWrite('Usage: cd [directory]')
-        return;
-    }
-    if (dir === '..') {
-        currentDir = currentDir.split('/').slice(0, -1).join('/')
-        return;
-    }
-    let dirIndex = storage.findIndex(x => x.dirpath === currentDir + '/' + dir)
-    if (dirIndex === -1) {
-        terminalWrite('Directory not found')
-        return;
-    }
-    currentDir += '/' + dir
-}
-
 function mkdir(raw){
     let dirname = raw.split(' ')[1]
     if (!dirname) {
         terminalWrite('Usage: mkdir [dirname]')
         return;
     }
-    let dir = {
-        dirname: dirname,
-        dirpath: currentDir + '/' + dirname,
-        files: []
+    let newDir = {
+        'dirname': dirname,
+        'dirpath': currentDir + '/' + dirname,
+        'files': [],
+        "subDir": []
     }
-    storage.push(dir)
+    storage.find(x => x.dirpath === currentDir).subDir.push(newDir)
     localStorage.setItem('dirs', JSON.stringify(storage))
+}
+
+function cd(raw){
+    let dir = raw.split(' ')[1]
+    if (!dir) {
+        terminalWrite('Usage: cd [dirname]')
+        return;
+    }
+    let newDir = storage.find(x => x.dirpath === currentDir).subDir.find(x => x.dirname === dir)
+    if (!newDir) {
+        terminalWrite('No such directory found')
+        return;
+    }
+    currentDir = newDir.dirpath
 }
