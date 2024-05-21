@@ -22,3 +22,28 @@ windowNavBar.addEventListener('mousedown', function(e) {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
 })
+
+function closeWindow(){
+    window.close();
+}
+
+function maximizeWindow(){
+    let window = windowNavBar.parentElement;
+    window.style.width = "100vw";
+    window.style.height = "100vh";
+    window.style.maxWidth = "99vw";
+    window.style.maxHeight = "97.5vh";
+    window.style.top = "0";
+    window.style.left = "0";
+
+}
+
+function minimizeWindow(){
+    let window = windowNavBar.parentElement;
+    window.style.width = "84%";
+    window.style.height = "70%";
+    window.style.maxWidth = "900px";
+    window.style.maxHeight = "501px";
+    window.style.top = "inherit";
+    window.style.left = "inherit";
+}
