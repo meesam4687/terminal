@@ -58,7 +58,7 @@ function ls() {
     for (i of folderArray) {
         let folderDiv = document.createElement('div')
         folderDiv.style.marginRight = '25px'
-        folderDiv.style.color = 'blue'
+        folderDiv.style.color = '#aae5ff'
         folderDiv.innerHTML = i
         folderLSDiv.appendChild(folderDiv)
     }
