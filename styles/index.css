@@ -159,3 +159,9 @@ body {
     margin: 0;
     padding: 0;
 }
+.folderLSDiv{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}

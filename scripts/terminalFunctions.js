@@ -44,7 +44,7 @@ function help() {
 
 function ls() {
     let fileArray = storage.find(x => x.dirpath === currentDir).files.map(x => x.filename)
-    let folderArray = storage.find(x => x.dirpath === currentDir).subDir.map(x => x.dirname)
+    let folderArray = storage.find(x => x.dirpath === currentDir).subDir
     let lsDiv = document.createElement('div')
     lsDiv.className = 'lsDiv'
     for (i of fileArray) {
@@ -106,7 +106,7 @@ function rm(raw){
     let fileIndex = storage.find(x => x.dirpath === currentDir).files.findIndex(x => x.filename === filename)
     let folderIndex;
     if (fileIndex === -1) {
-        folderIndex = storage.find(x => x.dirpath === currentDir).subDir.findIndex(x => x.dirname === filename)
+        folderIndex = storage.find(x => x.dirpath === currentDir).subDir.findIndex(x => x === filename)
         if (folderIndex === -1) {
             terminalWrite('No such File or Folder Found')
             return;
@@ -114,6 +114,7 @@ function rm(raw){
     }
     if(fileIndex === -1){
         storage.find(x => x.dirpath === currentDir).subDir.splice(folderIndex, 1)
+        storage.splice(storage.findIndex(x => x.dirpath === currentDir + '/' + filename), 1)
         localStorage.setItem('dirs', JSON.stringify(storage))
         return;
     }
@@ -131,14 +132,7 @@ function mkdir(raw){
         terminalWrite('Usage: mkdir [dirname]')
         return;
     }
-    let newDir = {
-        'dirname': dirname,
-        'dirpath': currentDir + '/' + dirname,
-        'files': [],
-        "subDir": []
-    }
-    storage.find(x => x.dirpath === currentDir).subDir.push(newDir)
-    localStorage.setItem('dirs', JSON.stringify(storage))
+    createDir(dirname)
 }
 
 function cd(raw){
@@ -147,10 +141,25 @@ function cd(raw){
         terminalWrite('Usage: cd [dirname]')
         return;
     }
-    let newDir = storage.find(x => x.dirpath === currentDir).subDir.find(x => x.dirname === dir)
-    if (!newDir) {
-        terminalWrite('No such directory found')
+    if(dir === '..'){
+        if(currentDir === '/'){
+            return;
+        }
+        let dirArray = currentDir.split('/')
+        dirArray.pop()
+        currentDir = dirArray.join('/')
         return;
     }
-    currentDir = newDir.dirpath
+    let oldDir = currentDir
+    currentDir = currentDir + '/' + dir
+    let newDir = storage.find(x => x.dirpath === currentDir)
+    if (!newDir) {
+        terminalWrite('No such directory found')
+        currentDir = oldDir
+        return;
+    }
+}
+function reset(){
+    terminalWrite('Resetting terminal...')
+    clearData()
 }
