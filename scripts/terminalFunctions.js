@@ -74,7 +74,7 @@ function cat(raw) {
     }
     let fileContent;
     try {
-        fileContent = storage.find(x => x.dirpath === currentDir).files.find(x => x.filename === file).fileContent
+        fileContent = storage.find(x => x.dirpath === currentDir).files.find(x => x.filename === file).fileContent.replace(/\n/g, '<br>')
     }
     catch {
         terminalWrite('File not found')
