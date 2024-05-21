@@ -163,3 +163,8 @@ function reset(){
     terminalWrite('Resetting terminal...')
     clearData()
 }
+
+function source(){
+    terminalWrite('Made by meesam4687<br>Opening Source Code...')
+    window.open('https://github.com/meesam4687/terminal')
+}

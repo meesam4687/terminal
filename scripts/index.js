@@ -13,6 +13,7 @@ let commands = {
     "mkdir": {command: mkdir, description: "mkdir - Create a new directory"},
     "cd": {command: cd, description: "cd - Change directory"},
     "reset" : {command: reset, description: "reset - Reset the terminal"},
+    "source": {command: source, description: "source - Show the source code of the terminal"},
 }
 
 function exec(command, rw) {
