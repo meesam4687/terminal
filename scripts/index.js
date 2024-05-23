@@ -31,6 +31,8 @@ function exec(command, rw) {
 
 let input = '';
 let rawInput = ''
+let terminalHistory = []
+let arrowUpped = false;
 document.addEventListener('keydown', function (event) {
     terminalBody.innerHTML = terminalBody.innerHTML.replace(/<span class="caret"><\/span>/g, '');
     if (event.key === 'Backspace') {
@@ -48,6 +50,23 @@ document.addEventListener('keydown', function (event) {
         terminalBody.innerHTML += "root@browser:"+ currentDir +"$ ";
         input = '';
         terminalBody.scrollTop = terminalBody.scrollHeight - terminalBody.clientHeight;
+        terminalHistory.push(rawInput);
+        localStorage.setItem('terminalHistory', JSON.stringify(terminalHistory));
+        arrowUpped = false;
+    }
+    
+    if (event.key === 'ArrowUp') {
+        if(arrowUpped){
+            terminalBody.innerHTML += '<span class="caret"></span>';
+            return;
+        }
+        if (terminalHistory.length === 0) {
+            terminalBody.innerHTML += '<span class="caret"></span>';
+            return;
+        }
+        input = terminalHistory[terminalHistory.length - 1];
+        terminalBody.innerHTML += input;
+        arrowUpped = true;
     }
     keys = ['shift', 'control', 'alt', 'meta', 'backspace', 'capslock', 'tab', 'enter', 'escape', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'delete', 'insert', 'home', 'end', 'pageup', 'pagedown', 'numlock', 'scrolllock', 'pause', 'printscreen', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'mediaprevioustrack', 'medianexttrack', 'audiovolumeup', 'audiovolumedown', 'audiovolumemute', 'mediaplaypause', 'mediastop', 'unidentified'];
 
