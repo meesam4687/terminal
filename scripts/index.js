@@ -41,6 +41,21 @@ document.addEventListener('keydown', function (event) {
             return;
         }
         input = input.slice(0, -1);
+        if(terminalBody.innerHTML.includes("&amp;") && terminalBody.innerHTML[terminalBody.innerHTML.length - 1] === ";" && terminalBody.innerHTML[terminalBody.innerHTML.length - 2] === "p" && terminalBody.innerHTML[terminalBody.innerHTML.length - 3] === "m" && terminalBody.innerHTML[terminalBody.innerHTML.length - 4] === "a" && terminalBody.innerHTML[terminalBody.innerHTML.length - 5] === "&"){
+            let trailing = terminalBody.innerHTML.replace(/&amp;/g, '')[terminalBody.innerHTML.replace(/&amp;/g, '').length - 1];
+            terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -5);
+            terminalBody.innerHTML += trailing;
+        }
+        if(terminalBody.innerHTML.includes("&lt;") && terminalBody.innerHTML[terminalBody.innerHTML.length - 1] === ";" && terminalBody.innerHTML[terminalBody.innerHTML.length - 2] === "t" && terminalBody.innerHTML[terminalBody.innerHTML.length - 3] === "l" && terminalBody.innerHTML[terminalBody.innerHTML.length - 4] === "&") {
+            let trailing = terminalBody.innerHTML.replace(/&lt;/g, '')[terminalBody.innerHTML.replace(/&lt;/g, '').length - 1];
+            terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -4);
+            terminalBody.innerHTML += trailing;
+        }
+        if(terminalBody.innerHTML.includes("&gt;") && terminalBody.innerHTML[terminalBody.innerHTML.length - 1] === ";" && terminalBody.innerHTML[terminalBody.innerHTML.length - 2] === "t" && terminalBody.innerHTML[terminalBody.innerHTML.length - 3] === "g" && terminalBody.innerHTML[terminalBody.innerHTML.length - 4] === "&") {
+            let trailing = terminalBody.innerHTML.replace(/&gt;/g, '')[terminalBody.innerHTML.replace(/&gt;/g, '').length - 1];
+            terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -4);
+            terminalBody.innerHTML += trailing;
+        }
         terminalBody.innerHTML = terminalBody.innerHTML.slice(0, -1);
     }
     if (event.key === 'Enter') {
